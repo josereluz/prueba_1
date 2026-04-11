@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supervisi&oacute;n Comunicaci&oacute;n</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <meta name="theme-color" content="#0f766e">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+
+  <!-- CSS personalizado -->
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body class="tema-comunicacion">
+  <div class="container">
+    <!-- Panel -->
+    <div class="panel-capas" id="panelCapas">
+      <div class="panel-header">
+        <div class="panel-brand">
+          <h3>Supervisi&oacute;n Comunicaci&oacute;n</h3>
+        </div>
+        <button class="toggle-btn" id="toggleBtn">&#9664;</button>
+      </div>
+
+      <div class="panel-content">
+        <!-- Distrito -->
+        <div class="district-section">
+          <h4 class="section-title">Distrito</h4>
+          <select id="search-distrito">
+            <option value="">-- Seleccionar --</option>
+            <option value="150112">Independencia</option>
+            <option value="150110">Comas</option>
+          </select>
+        </div>
+
+        <!-- Buscador -->
+        <div class="grupo buscador-grupo">
+          <div class="grupo-header grupo-header-top" data-target="grupo-buscador">
+            <span><span class="header-label header-label-top">Buscador</span></span>
+            <span class="arrow">&#9656;</span>
+          </div>
+          <div class="grupo-body closed" id="grupo-buscador">
+            <div class="buscador-section buscador-section-accordion">
+              <label for="search-sector">Sector</label>
+              <input type="text" id="search-sector" placeholder="Ej: 01">
+
+              <label for="search-manzana">Manzana</label>
+              <input type="text" id="search-manzana" placeholder="Ej: 018">
+
+              <label for="search-lote">Lote</label>
+              <input type="text" id="search-lote" placeholder="Ej: 010">
+
+              <button id="btn-search">Buscar</button>
+              <div id="search-result" class="search-result"></div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="sep">
+
+        <!-- Capas -->
+        <div class="control-capas">
+          <h4 class="section-title control-title">Controlador de Capas</h4>
+
+          <div class="grupo" style="margin-top:10px;">
+            <div class="grupo-header grupo-header-top" data-target="grupo-poligonos-cic">
+              <span><span class="header-label header-label-top">Pol&iacute;gonos CIC</span></span>
+              <span class="arrow">&#9656;</span>
+            </div>
+            <div class="grupo-body closed" id="grupo-poligonos-cic">
+              <div class="capa-item capa-item-nested" style="margin-top:0;">
+                <label><input type="checkbox" id="layer-poligonos-supervision" checked><span>Supervisi&oacute;n de los Pol&iacute;gonos</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="grupo">
+            <div class="grupo-header grupo-header-top" data-target="grupo-actividades">
+              <span class="header-label header-label-top">Actividades</span>
+              <span class="arrow">&#9656;</span>
+            </div>
+            <div class="grupo-body closed" id="grupo-actividades">
+              <div class="grupo grupo-subnivel mini-grupo">
+                <div class="grupo-header grupo-header-sub grupo-header-sub-supervision" data-target="grupo-actividades-supervision">
+                  <span><span class="header-label header-label-sub">Supervisi&oacute;n</span></span>
+                  <span class="arrow">&#9656;</span>
+                </div>
+                <div class="grupo-body closed" id="grupo-actividades-supervision">
+                  <div class="capa-item capa-item-deep" style="margin-top:0;"><label><input type="checkbox" id="layer-act-charla"><span>Charla de Sensibilizaci&oacute;n</span></label></div>
+                  <div class="capa-item capa-item-deep"><label><input type="checkbox" id="layer-act-afiches"><span>Pegado de Afiches</span></label></div>
+                  <div class="capa-item capa-item-deep"><label><input type="checkbox" id="layer-act-roll"><span>Roll Screen, Pendones, Roll Up</span></label></div>
+                  <div class="capa-item capa-item-deep"><label><input type="checkbox" id="layer-act-banderolas"><span>Banderolas, Banner, Pasacalles</span></label></div>
+                  <div class="capa-item capa-item-deep"><label><input type="checkbox" id="layer-act-perifoneo"><span>Perifoneo</span></label></div>
+                  <div class="capa-item capa-item-deep"><label><input type="checkbox" id="layer-act-volanteo"><span>Volanteo</span></label></div>
+                </div>
+              </div>
+
+              <div class="grupo grupo-subnivel mini-grupo">
+                <div class="grupo-header grupo-header-sub grupo-header-sub-cic" data-target="grupo-actividades-cic">
+                  <span><span class="header-label header-label-sub">CIC</span></span>
+                  <span class="arrow">&#9656;</span>
+                </div>
+                <div class="grupo-body closed" id="grupo-actividades-cic">
+                  <div class="capa-item capa-item-deep" style="margin-top:0;"><label><input type="checkbox" id="layer-cic-difusion"><span>Difusi&oacute;n</span></label></div>
+                  <div class="capa-item capa-item-deep"><label><input type="checkbox" id="layer-cic-inicio"><span>Inicio</span></label></div>
+                  <div class="capa-item capa-item-deep"><label><input type="checkbox" id="layer-cic-cierre"><span>Cierre</span></label></div>
+                  <div class="capa-item capa-item-deep"><label><input type="checkbox" id="layer-cic-movil"><span>Movil</span></label></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grupo">
+            <div class="grupo-header grupo-header-top" data-target="grupo-conflicto">
+              <span><span class="header-label header-label-top">Conflicto Territorial</span></span>
+              <span class="arrow">&#9656;</span>
+            </div>
+            <div class="grupo-body closed" id="grupo-conflicto">
+              <div class="capa-item capa-item-nested" style="margin-top:0;">
+                <label><input type="checkbox" id="layer-conflicto-zona"><span>Zona en controversia</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="grupo">
+            <div class="grupo-header grupo-header-top" data-target="grupo-base">
+              <span><span class="header-label header-label-top">Capa Base</span></span>
+              <span class="arrow">&#9656;</span>
+            </div>
+            <div class="grupo-body closed" id="grupo-base">
+              <div class="capa-item capa-item-nested" style="margin-top:0;">
+                <label><input type="checkbox" id="layer-base-municipalidad"><span>Municipalidad Distrital</span></label>
+              </div>
+              <div class="capa-item capa-item-nested">
+                <label><input type="checkbox" id="layer-base-centro-operacion"><span>Centro de Operaci&oacute;n Distrital</span></label>
+              </div>
+              <div class="capa-item capa-item-nested">
+                <label><input type="checkbox" id="layer-base-manzana"><span>Manzana</span></label>
+              </div>
+              <div class="capa-item capa-item-nested">
+                <label><input type="checkbox" id="layer-base-lote"><span>Lote</span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-panel-overlay" id="mobilePanelOverlay" aria-hidden="true"></div>
+
+    <!-- Mapa -->
+    <div id="map"></div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+
+  <!-- Script -->
+  <script src="js/map.js"></script>
+
+  <!-- Modal selector de distrito -->
+  <div id="district-modal" class="district-modal" aria-hidden="true">
+    <div class="district-modal-card" role="dialog" aria-modal="true" aria-labelledby="district-modal-title">
+      <h2 id="district-modal-title">&iquest;Qu&eacute; distrito deseas visualizar?</h2>
+
+      <div class="district-modal-actions">
+        <button type="button" class="district-btn" data-ubigeo="150110" data-name="Comas">
+          <span class="district-btn-title">Comas</span>
+</button>
+
+        <button type="button" class="district-btn" data-ubigeo="150112" data-name="Independencia">
+          <span class="district-btn-title">Independencia</span>
+</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
