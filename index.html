@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proyecto Catastro Urbano Nacional</title>
+  <link rel="icon" href="comunicacion/favicon.ico" sizes="any">
+  <meta name="theme-color" content="#123b7a">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg1:#08162c;
+      --bg2:#12396d;
+      --bg3:#0e7b86;
+      --text:#f6fbff;
+      --com:#0f766e;
+      --com2:#1ca5c8;
+      --cardText:#11223d;
+    }
+    html,body{height:100%}
+    body{
+      font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+      min-height:100vh;
+      min-height:100dvh;
+      color:var(--text);
+      background:
+        linear-gradient(135deg, rgba(6,16,34,.34) 0%, rgba(10,30,62,.22) 46%, rgba(8,92,102,.18) 100%),
+        url('bg-ciudad.webp') center center / cover no-repeat fixed;
+      display:grid;
+      place-items:center;
+      padding:14px;
+      overflow:hidden;
+      position:relative;
+    }
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:
+        radial-gradient(circle at 20% 18%, rgba(255,255,255,.10), transparent 22%),
+        radial-gradient(circle at 85% 80%, rgba(24,213,179,.08), transparent 24%),
+        radial-gradient(circle at 50% 50%, transparent 62%, rgba(4,12,24,.16) 100%);
+      pointer-events:none;
+      z-index:0;
+    }
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(2,8,18,.04));
+      pointer-events:none;
+      z-index:0;
+    }
+    .shell{position:relative;z-index:1;width:min(620px,100%)}
+    .hero{
+      position:relative;
+      overflow:hidden;
+      border-radius:30px;
+      padding:24px 26px 22px;
+      background:linear-gradient(180deg, rgba(11,37,76,.84), rgba(9,54,99,.78));
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow:0 26px 68px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.10), inset 0 -1px 0 rgba(255,255,255,.05);
+      backdrop-filter: blur(12px) saturate(110%);
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size:38px 38px;
+      mask-image:linear-gradient(180deg, rgba(0,0,0,.32), transparent 72%);
+      pointer-events:none;
+      opacity:.55;
+    }
+    .hero-head{position:relative;text-align:center;margin-bottom:18px;z-index:1}
+    h1{
+      margin:0 auto 6px;
+      max-width:16ch;
+      font-size:clamp(34px,4vw,56px);
+      line-height:1.02;
+      letter-spacing:-1.35px;
+      font-weight:850;
+      text-wrap:balance;
+      text-shadow:0 4px 16px rgba(0,0,0,.18);
+    }
+    .subtitle{
+      font-size:clamp(16px,1.55vw,20px);
+      font-weight:650;
+      color:rgba(246,251,255,.96);
+      letter-spacing:.15px;
+      text-shadow:0 2px 10px rgba(0,0,0,.16);
+    }
+    .grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr;max-width:460px;margin:0 auto}
+    .card{
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      min-height:296px;
+      padding:24px 20px 22px;
+      border-radius:28px;
+      color:inherit;
+      background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(245,249,254,.94));
+      border:1px solid rgba(255,255,255,.86);
+      box-shadow:0 18px 42px rgba(7,22,40,.18), 0 8px 18px rgba(7,22,40,.09);
+      overflow:hidden;
+      isolation:isolate;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0 auto auto 0;
+      width:100%;
+      height:4px;
+      background:linear-gradient(90deg,var(--com),var(--com2));
+    }
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:auto -56px -56px auto;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      opacity:.11;
+      pointer-events:none;
+      background:radial-gradient(circle,#1592a9 0%, transparent 72%);
+    }
+    .shine{position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.32),transparent 42%);pointer-events:none;z-index:0}
+    .badge{
+      width:74px;
+      height:74px;
+      border-radius:22px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      font-size:34px;
+      font-weight:850;
+      box-shadow:0 14px 28px rgba(0,0,0,.14);
+      margin-bottom:18px;
+      position:relative;
+      z-index:1;
+      background:linear-gradient(135deg,var(--com),var(--com2));
+    }
+    .title{
+      font-size:clamp(26px,2.8vw,36px);
+      line-height:1.08;
+      font-weight:850;
+      color:var(--cardText);
+      margin:0 auto 22px;
+      width:100%;
+      max-width:12ch;
+      text-align:center;
+      text-wrap:balance;
+      position:relative;
+      z-index:1;
+      text-shadow:0 1px 0 rgba(255,255,255,.22);
+    }
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:146px;
+      padding:14px 20px;
+      border-radius:16px;
+      font-weight:800;
+      color:#fff;
+      font-size:16px;
+      letter-spacing:.2px;
+      box-shadow:0 12px 24px rgba(0,0,0,.12);
+      position:relative;
+      z-index:1;
+      text-decoration:none;
+      transition:transform .18s ease, filter .18s ease, box-shadow .18s ease;
+      background:linear-gradient(135deg,var(--com),#138f85)
+    }
+    .cta:hover{
+      transform:translateY(-1px);
+      filter:brightness(1.03);
+      box-shadow:0 16px 28px rgba(0,0,0,.16);
+    }
+    @media (max-width: 900px){
+      body{
+        background:
+          linear-gradient(135deg, rgba(6,16,34,.40) 0%, rgba(10,30,62,.28) 46%, rgba(8,92,102,.22) 100%),
+          url('bg-ciudad.webp') center center / cover no-repeat;
+      }
+      .hero{padding:22px 20px 18px;border-radius:26px}
+      .hero-head{margin-bottom:16px}
+      h1{max-width:15ch;font-size:clamp(28px,5vw,42px)}
+      .subtitle{font-size:17px}
+      .card{min-height:260px;padding:22px 16px 20px;border-radius:24px}
+      .badge{width:68px;height:68px;font-size:30px;margin-bottom:15px}
+      .title{font-size:clamp(23px,3.3vw,30px);margin-bottom:18px}
+      .cta{min-width:130px;padding:13px 16px;font-size:15px}
+    }
+    @media (max-width: 640px){
+      body{padding:10px;overflow:auto}
+      .hero{padding:18px 14px 16px;border-radius:22px}
+      .hero::before{background-size:28px 28px}
+      .hero-head{margin-bottom:14px}
+      h1{font-size:clamp(22px,7vw,32px);max-width:12ch}
+      .subtitle{font-size:14px}
+      .card{min-height:210px;padding:18px 12px 16px;border-radius:20px}
+      .badge{width:56px;height:56px;border-radius:18px;font-size:26px;margin-bottom:12px}
+      .title{font-size:clamp(20px,5vw,26px);margin:0 auto 14px;max-width:10.8ch;width:100%;text-align:center}
+      .cta{min-width:110px;padding:11px 14px;border-radius:14px;font-size:14px}
+    }
+    @media (max-width: 420px){
+      body{padding:8px}
+      .hero{padding:16px 10px 14px}
+      h1{font-size:clamp(20px,6.8vw,28px)}
+      .subtitle{font-size:13px}
+      .card{min-height:190px;padding:16px 10px 14px}
+      .badge{width:50px;height:50px;font-size:23px;margin-bottom:10px}
+      .title{font-size:clamp(18px,5.2vw,22px);margin:0 auto 12px;width:100%;text-align:center}
+      .cta{min-width:96px;padding:10px 12px;font-size:13px}
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-head">
+        <h1>Proyecto Catastro Urbano Nacional</h1>
+        <div class="subtitle">Empresa Supervisora IGN FI</div>
+      </div>
+
+      <div class="grid">
+        <div class="card" aria-label="Supervisi&oacute;n comunicaci&oacute;n">
+          <span class="shine"></span>
+          <div class="badge">S</div>
+          <div class="title">Supervisi&oacute;n Comunicaci&oacute;n</div>
+          <a class="cta" href="comunicacion/index.html" aria-label="Ingresar al visor de supervisi&oacute;n comunicaci&oacute;n">Ingresar</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
